@@ -11,17 +11,130 @@ Markdown is a lightweight and easy-to-use syntax for styling your writing. It in
 ```markdown
 Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <ctype.h>
+#include <math.h>
 
-1. Numbered
-2. List
+typedef struct UserValues UserValues;     // shorthand name for user values
 
-**Bold** and _Italic_ and `Code` text
+int max;   //Variable 
+
+struct UserValues {                    // defining userValues structure
+    
+    float ratepaid;
+    float amount;
+    float monthamount;
+    float principal;
+    float rate;
+    int payments;
+    float finalrate;
+    float monthrate;
+};
+
+UserValues *pUser;              // defining a global pointer to access values
+
+
+/**
+ * The MonthlyPayment() accepts the user's payment period as the variable 
+ * to drive the recursive calculations of the Mortgage Calculator
+ * 
+ * @param payments The UserValues struct data member field: payments
+ * 
+ * @return * @return A recursive call to the MonthlyPayment() function
+ */
+int MonthlyPayment(int i) {
+    
+    if (i < (max) ) {
+	
+        // The initial Mortgage calculation.
+        pUser->amount = pow(pUser->finalrate, i) * pUser->principal - ((pow(pUser ->finalrate, i)-1 ) / 
+                (pUser ->monthrate) * pUser ->monthamount);
+	
+        pUser->ratepaid = (((pUser->principal * pUser->monthrate  - pUser->monthamount) * ((pow(pUser->finalrate, i) - 1) / 
+                (pUser->monthrate))) + (pUser->monthamount * i) );
+        /**
+         * Print the initial Amount Owed
+         * Print the payment month in question..
+         * Print the Interest Amount
+        **/
+        printf("\nAmount Owing: $%10.2f\tThe payment month: %d\tCumulative Interest Amount: $%10.2f\n", 
+                pUser->amount,
+                (i),
+                (pUser->ratepaid));
+        
+        return MonthlyPayment(i + 1);  // add 1 from argument 'payments'
+    }
+    else  {
+        return (max);  // The Base Case!
+    }
+    
+}
+
+
+int main(void) {
+    printf("\n\n");         // cosmetic separation spaces
+
+    
+    UserValues user;        // UserValues structure declaration
+    pUser = &user;          
+    char test = '\0';       // test variable declared
+
+
+    /**
+    * Asking if user would like to use the program; setting a test to exit
+    **/
+    printf("Would you like to use the Loan Payback Period Calculator (y OR n): ");
+    scanf("%c", &test);
+
+    while (tolower(test) == 'n') {
+
+        if (!(test == 'y')) {
+            printf("Thank You\n\n");
+            exit(0);
+      	}
+    }
+
+    
+    /**
+    * Setting the user's values for interest rate, payback months, and principal
+    **/
+    printf("Enter loan's interest rate (eg.. 4.5, 10.0, 1.4): ");
+    scanf("%f", &user.rate);
+
+    printf("Enter the required months for the payback period: ");
+    scanf("%d", &user.payments);
+    
+    max = user.payments+1;
+    
+    /**
+     * Storing the principal amount in another variable 
+     * previousPrincipal, as well..
+     */
+    printf("What is the principal amount $");
+    scanf("%f", &user.principal);
+    
+    printf("\n\nThe Principal $%.2f\nThe Rate: %.2f percent\nThe Payback Period: %d\n",
+    user.principal, user.rate, user.payments);
+    
+    user.finalrate = 1+(user.rate/12/100);
+    printf("The monthly rate is %.4f\n ", user.finalrate);
+    user.monthrate = user.rate/12/100;
+
+    user.monthamount = user.monthrate*user.principal/(1- pow(user.finalrate,user.payments*-1));
+    printf("\n\nThe Monthly Payment Amount is $%.2f\n\n ", user.monthamount);
+    
+    MonthlyPayment(user.payments-user.payments+1); 
+
+    
+    printf("\n\n");               // cosmetic separation spaces
+    return 0;
+
+}
+
+
 
 [Link](url) and ![Image](src)
 ```
