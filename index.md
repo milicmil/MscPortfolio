@@ -4,7 +4,7 @@ You can use the [editor on GitHub](https://github.com/milicmil/MscPortfolio/edit
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+### Description
 
 This is a small program which is a mortgage calculaor written in C. There are three Inputs. The Loan Amount, The number of months requred to pay off and the annual interest rate. The calculator will print out the outputs of the Months as they count down to 0, cumulative interest and the amount owing at the end of the month. The program uses a recursive method to complete the cycle. 
 
