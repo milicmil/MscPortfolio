@@ -1,0 +1,230 @@
+
+
+
+
+
+
+/*simulates the operation of a pop machine */
+
+/*how numbers are read as command line arguments */
+/*https://stackoverflow.com/questions/523237/how-to-read-in-numbers-as-command-arguments */
+
+/* definition of exit(1) function */ 
+/*https://stackoverflow.com/questions/9944785/what-is-the-difference-between-exit0-and-exit1-in-c */
+
+#include <stdio.h>
+#include <stdlib.h> /*library that carries the exit functionality*/
+
+#define DIVISORCONSTANT 5 /*divisor constant that satisfies the price requirements*/
+#define NICKEL 5 /*hard constant sets value of a nickel*/
+#define DIME 10 /*hard constant sets value of a dime*/
+#define QUARTER 25 /*hard constant sets value of a quarter */
+#define MINPRICE 30 /*hard constant sets value ofminimum price of pop*/
+#define MAXPRICE 105 /*hard constant sets value of maximum price of pop*/
+#define CURRENCY "cents" /*currency value name*/
+#define	NICKELNAME "nickel(s)" /*nickel value name*/
+#define DIMENAME "dime(s)" /*dime value name*/
+#define QUARTERNAME "quarters(s)" /*quarter value name*/
+
+int
+main ( int argc, char *priceinput[] ) /*sets up program to read command line arguments*/
+
+
+  {
+   int price; /*price set  by user variable*/
+
+   int amount = 0; /*amount of money deposited variable*/
+   int amountleft = 0; /*amount of money left to be added in order to dispense pop*/
+
+   int quarternumber = 0; /*number of quarters that  need to be returned: not implemented*/   
+   int dimenumber = 0; /*number of dimes that  need to be returned*/
+   int nickelnumber = 0;/*number of nickels that  need to be returned*/
+   int amountreturned = 0;/*variable that is used to calculate the number of dimes and nickels that are refunded*/
+   int extraamount = 0;/*variable that holds the cent amount that is refunded when pop is dispensed*/
+   char coin; /*variable that holds the coin input value*/
+
+
+    
+   /* ask user for initial supply the price*/
+   if(argc == 1 ) 
+	{
+        printf("Please specify selling price as command line argument. \n");
+	printf("Usage: pop price \n");
+	exit(1);
+	}
+   price = atoi(priceinput[1]); /* converts the command line into an integer*/
+   
+   if( price % DIVISORCONSTANT != 0 ) /*checks whether the price is divisible by the defined constant*/
+	{
+	printf("Price must be a multiple of %d \n", DIVISORCONSTANT);
+        exit(1);
+	}
+   if( price > MAXPRICE || price < MINPRICE ) /*tests whether the input value is within the acceptable price range*/
+	{
+	printf("Price must be from %d to %d inclusive\n", MINPRICE, MAXPRICE);
+        exit(1);
+   	}
+
+printf(" Welcome to my Pop Machine! \n");
+printf(" Pop is %d %s. Please inser any combination of %s\n", price,CURRENCY, NICKELNAME);
+printf(" [N or n], %s [D or d] or %s [Q or q]. You can \n", DIMENAME, QUARTERNAME);
+printf(" also press R or r for coin return \n");
+
+   amountleft = price;
+
+   /* the program loops until E is pressed, not really needed */
+   while (coin != 'E' && coin != 'e')
+   {
+       /* Ask user to insert coins */
+       printf ("\n Enter coin(NDQR) ");
+       scanf ( " %c", &coin);
+      
+       
+       /* Test what coin was entered */
+       if (coin == 'N' || coin == 'n')
+       {
+       amount = amount + NICKEL;
+       amountleft = amountleft - NICKEL;
+       printf("%s detected. \n", NICKELNAME);
+	printf("You have inserted a total of %d %s \n", amount, CURRENCY);
+
+		if( price > amount) /* Tests whether sufficint payment was received*/
+		{
+		printf("Please insert %d %s \n", amountleft, CURRENCY);
+	        }
+		else
+		{
+	        amountreturned = amount - price;
+        	extraamount = amountreturned;
+
+		/* extra script that qould allow for quarters to be refunded*/
+		/*quarternumber = amountreturned / QUARTER;*/
+		/*amountreturned = amountreturned % QUARTER;*/
+
+		dimenumber = amountreturned / DIME;
+        	amountreturned = amountreturned % DIME;
+	        nickelnumber = amountreturned / NICKEL;
+	        amountreturned = amountreturned % NICKEL;
+	        printf("Pop is dispensed. Thank you for your business. Please Come Again \n");
+	        printf("Change given as %d %s as %d %s and %d %s\n", extraamount,CURRENCY, dimenumber,DIMENAME,nickelnumber, NICKELNAME);
+
+        	amountleft = price;
+	        amount = 0;
+		amountreturned = 0;
+		}
+	}
+       
+	else if (coin == 'Q' || coin == 'q' )
+       { 
+        amount = amount + QUARTER;
+	amountleft = amountleft - QUARTER;
+	printf("%s detected. \n", QUARTERNAME);
+        printf("You have inserted a total of %d %s \n", amount, CURRENCY);
+	
+		if( price > amount) /* Tests whether sufficint payment was received*/
+                {
+                printf("Please insert %d %s \n", amountleft, CURRENCY);
+                }
+                else
+                 {
+ 		amountreturned = amount - price;
+                extraamount = amountreturned;
+
+		/* extra script that would allow for quarters to be refunded*/
+                /*quarternumber = amountreturned / QUARTER;*/
+                /*amountreturned = amountreturned % QUARTER;*/
+
+		dimenumber = amountreturned / DIME;
+	        amountreturned = amountreturned % DIME;
+	        nickelnumber = amountreturned / NICKEL;
+	        amountreturned = amountreturned % NICKEL;
+	        printf("Pop is dispensed. Thank you for your business. Please Come Again \n");
+	        printf("Change given as %d %s as %d %s and %d %s \n", extraamount,CURRENCY, dimenumber,DIMENAME,nickelnumber,NICKELNAME);
+
+	        amountleft = price;
+                amount =0;
+		amountreturned = 0;
+		}
+  
+       }
+       else if (coin == 'D' || coin == 'd' )
+       { 
+        amount = amount + DIME;
+	amountleft = amountleft - DIME;
+	printf("%s detected \n", DIMENAME);
+        printf("You have inserted a total of %d %s \n", amount,CURRENCY);
+	
+		 if( price > amount) /* Tests whether sufficint payment was received*/
+                {
+                printf("Please insert %d %s \n", amountleft,CURRENCY);
+                }
+                else
+                 {
+		amountreturned = amount - price;
+                extraamount = amountreturned;
+
+                
+		/* extra script that would allow for quarters to be refunded*/
+                /*quarternumber = amountreturned / QUARTER;*/
+                /*amountreturned = amountreturned % QUARTER;*/
+
+                dimenumber = amountreturned / DIME;
+                amountreturned = amountreturned % DIME;
+                nickelnumber = amountreturned / NICKEL;
+                amountreturned = amountreturned % NICKEL;
+                printf("Pop is dispensed. Thank you for your business. Please Come Again \n");
+                printf("Change given as %d %s as %d %s and %d %s \n", extraamount,CURRENCY, dimenumber,DIMENAME,nickelnumber,NICKELNAME);
+
+                amountleft = price;
+                amount =0;
+		amountreturned = 0;
+		}
+	}
+       else if (coin == 'R' || coin == 'r') /* Tests whether the user wants a refund*/
+       {
+        amountreturned = amount;
+	/* extra script that would allow for quarters to be refunded*/
+        /*quarternumber = amountreturned / QUARTER;*/
+        /*amountreturned = amountreturned % QUARTER;*/
+        dimenumber = amountreturned / DIME;
+        amountreturned = amountreturned % DIME;
+        nickelnumber = amountreturned / NICKEL;
+        amountreturned = amountreturned % NICKEL;
+
+ 	printf("Change given as %d %s as %d %s and %d %s \n", amount,CURRENCY, dimenumber,DIMENAME,nickelnumber,NICKELNAME);
+        
+        amount = amountreturned;
+        amountleft = price;
+        }
+	/* Force quit and dispense change*/
+
+        else if (coin == 'E' || coin == 'e')
+        {
+ 	amountreturned = amount;
+
+	/* extra script that would allow for quarters to be refunded*/
+        /*quarternumber = amountreturned / QUARTER;*/
+        /*amountreturned = amountreturned % QUARTER;*/
+        dimenumber = amountreturned / DIME;
+        amountreturned = amountreturned % DIME;
+        nickelnumber = amountreturned / NICKEL;
+        amountreturned = amountreturned % NICKEL;       
+
+	printf("Change given as %d %s as %d %s and %d %s \n", amount,CURRENCY, dimenumber,DIMENAME,nickelnumber,NICKELNAME);
+        printf("\n Shutting Down. Goodbye \n");
+	exit(1); /* exits the program*/
+	}
+
+
+         else /* in case a wrong key was inputed*/
+        {
+        printf("Unknown coin rejected \n");
+        printf("You have inserted a total of %d %s \n", amount,CURRENCY);
+        printf("Please insert %d %s \n", amountleft,CURRENCY);
+        }
+
+	}
+	/* while statement ends, E or e is pressed */    
+	   return (0);
+   }
+
