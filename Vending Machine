@@ -1,5 +1,16 @@
 
+## Welcome to My sample loan calculator in C
 
+You can use the [editor on GitHub](https://github.com/milicmil/MscPortfolio/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+
+Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+
+### Description
+
+This is a small program which is a mortgage calculaor written in C. There are three Inputs. The Loan Amount, The number of months requred to pay off and the annual interest rate. The calculator will print out the outputs of the Months as they count down to 0, cumulative interest and the amount owing at the end of the month. The program uses a recursive method to complete the cycle. 
+
+```markdown
+Syntax highlighted code block
 
 
 
@@ -228,3 +239,16 @@ printf(" also press R or r for coin return \n");
 	   return (0);
    }
 
+
+[Link](url) and ![Image](src)
+```
+
+For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+
+### Jekyll Themes
+
+Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/milicmil/MscPortfolio/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+
+### Support or Contact
+
+Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
