@@ -6,7 +6,7 @@ Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://j
 
 ### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+This is a small program which is a mortgage calculaor written in C. There are three Inputs. The Loan Amount, The number of months requred to pay off and the annual interest rate. The calculator will print out the outputs of the Months as they count down to 0, cumulative interest and the amount owing at the end of the month. The program uses a recursive method to complete the cycle. 
 
 ```markdown
 Syntax highlighted code block
